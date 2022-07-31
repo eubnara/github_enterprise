@@ -5,6 +5,9 @@
 from __future__ import (absolute_import, division, print_function)
 from ansible.module_utils.basic import AnsibleModule
 __metaclass__ = type
+import os
+import requests
+
 
 DOCUMENTATION = r'''
 ---
@@ -14,8 +17,8 @@ short_description: This is a module to download assets from repository in github
 
 version_added: "1.0.0"
 
-description: This is a module to download assets from repository in github enterprise environment.
-It allows you to choose latest release or release by tag and specify asset names to download.
+description: "This is a module to download assets from repository in github enterprise environment.
+It allows you to choose latest release or release by tag and specify asset names to download."
 
 options:
     url:
@@ -123,7 +126,7 @@ def run_module():
         result['msg'] = f'Failed to connect {url}'
         module.fail_json(**result)
     if r.status_code == 401:
-        result['msg'] = f'401 Unauthorized'
+        result['msg'] = '401 Unauthorized'
         module.fail_json(**result)
 
     # get assets
